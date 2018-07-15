@@ -1,10 +1,13 @@
 import * as React from 'react';
-import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
+
+import { ILoginData } from 'src/reducers/LoginReducer';
+import { IStoreState } from 'src/store/InitialState';
 
 
 interface ILandingProps extends React.Props<any> {
-    login: any
+    login: ILoginData;
 }
 
 const Landing = (props: ILandingProps) =>
