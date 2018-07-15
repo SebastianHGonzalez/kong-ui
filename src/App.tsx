@@ -1,17 +1,15 @@
 import * as React from 'react';
 import { Provider } from 'react-redux';
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 
-import Landing from 'src/components/Landing/Landing';
+import Routes from 'src/Routes';
 import configureStore from 'src/store/ConfigureStore';
 
 
 const App = () => (
   <Provider store={configureStore()}>
     <HashRouter>
-      <Switch>
-        <Route exact={true} path="/" component={Landing} />
-      </Switch>
+      {Routes}
     </HashRouter>
   </Provider>
 );
