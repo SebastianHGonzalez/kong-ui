@@ -1,15 +1,21 @@
 import * as React from 'react';
-import './App.css';
+import { Redirect } from 'react-router';
+import { connect } from 'react-redux';
 
-import logo from './logo.svg';
 
-export default () =>
-    <div className="App">
-        <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-            To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-    </div>
+interface ILandingProps extends React.Props<any> {
+    login: any
+}
+
+const Landing = (props: ILandingProps) =>
+(
+    <Redirect to={props.login ? "/dashboard" : "/login"} />
+);
+
+const mapStateToProps = (state: IStoreState) => (
+    {
+        login: state.login
+    }
+);
+
+export default connect(mapStateToProps)(Landing);
