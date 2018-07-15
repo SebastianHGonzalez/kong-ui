@@ -32,7 +32,7 @@ class LoginForm extends React.Component<T, ILoginFormState> {
     }
 
     public setKongUrl(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>): void {
-        const kongUrl = event.target.value || ""
+        const kongUrl = event.target.value
         this.setState({ kongUrl });
     }
 
@@ -52,7 +52,7 @@ class LoginForm extends React.Component<T, ILoginFormState> {
             <form onSubmit={this.login}>
                 <FormControl>
                     {this.state.redirect}
-                    <InputLabel>Kong Url:</InputLabel>
+                    <InputLabel>Kong Url</InputLabel>
                     <Input onChange={this.setKongUrl} />
                     <Button size="large" color="primary" type="submit">Connect</Button>
                 </FormControl>
