@@ -1,5 +1,3 @@
-import { AxiosResponse } from "axios";
-
 import { IRestClient, IRestClientOptions, RestClient } from "./RestClient";
 
 
@@ -33,7 +31,6 @@ export default class KongAdminApi implements IKongAdminApi {
         };
 
         return this.restClient.get(options)
-        .then((axiosResponse: AxiosResponse) => axiosResponse.data);
     }
 
     public nodeStatus() {
@@ -42,6 +39,5 @@ export default class KongAdminApi implements IKongAdminApi {
         };
 
         return this.restClient.get(options)
-        .then((axiosResponse: AxiosResponse) => axiosResponse.data);
     }
 }

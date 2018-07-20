@@ -1,9 +1,10 @@
 import * as React from 'react';
 
-import { Card, CardContent, CardHeader, LinearProgress, TableRow } from '@material-ui/core';
+import { Card, CardContent, CardHeader, TableRow } from '@material-ui/core';
 
 import { ILoginData } from 'src/reducers/LoginReducer';
 import { INodeInformation, INodeStatus } from 'src/STSO/KongAdminApi';
+import NodeId from './nodeInfo/NodeId';
 
 
 interface IKongServerStatusProps extends React.Props<any> {
@@ -24,16 +25,27 @@ class KongServerStatus extends React.Component<IKongServerStatusProps, IKongServ
             nodeInfo: null,
             nodeStatus: null,
         };
+
+        this.setNodeInfo = this.setNodeInfo.bind(this);
+        this.setNodeStatus = this.setNodeStatus.bind(this);
+    }
+
+    public setNodeInfo(nodeInfo: INodeInformation){
+        this.setState({ nodeInfo })
+    }
+
+    public setNodeStatus(nodeStatus: INodeStatus){
+        this.setState({ nodeStatus })   
     }
 
     public componentDidMount() {
         this.props.login.api
             .nodeInformation()
-            .then((nodeInfo: INodeInformation) => this.setState({ nodeInfo }));
+            .then(this.setNodeInfo);
 
         this.props.login.api
             .nodeStatus()
-            .then((nodeStatus: INodeStatus) => this.setState({ nodeStatus }));
+            .then(this.setNodeStatus);
     }
 
     public render() {
@@ -42,7 +54,10 @@ class KongServerStatus extends React.Component<IKongServerStatusProps, IKongServ
                 <CardHeader title="Server Status" />
                 <CardContent>
                     <TableRow>
-                    Node Id: {(this.state.nodeInfo && this.state.nodeInfo.node_id) || <LinearProgress />}
+                        Node id: <NodeId node={this.state.nodeInfo}/>
+                    </TableRow>
+                    <TableRow>
+                        Node :
                     </TableRow>
                 </CardContent>
             </Card>
