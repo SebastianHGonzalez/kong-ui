@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect, RouteComponentProps, withRouter } from 'react-router';
 
 import * as loginActionCreators from 'src/actions/LoginActionCreators';
+import KongServerServices from 'src/components/Dashboard/KongServerServices';
 import KongServerStatus from 'src/components/Dashboard/KongServerStatus';
 import { ILoginData } from 'src/reducers/LoginReducer';
 import { PATH } from 'src/Routes';
@@ -18,6 +19,7 @@ interface IDashBoardProps extends RouteComponentProps<any> {
 const renderDashboard = ({ login }: IDashBoardProps) => (
     <div>
         <KongServerStatus login={login} />
+        <KongServerServices login={login} />
     </div>
 );
 
