@@ -10,6 +10,7 @@ import Locale from 'src/STSO/locale/Locale';
 interface IAddServiceActionProps extends React.Props<any> {
     login: ILoginData;
     locale: Locale;
+    updateServices: () => void;
 }
 
 interface IAddServiceActionState {
@@ -38,9 +39,11 @@ export default class AddServiceAction extends React.Component<IAddServiceActionP
         );
     }
 
-    private handleDialogClose(data: IServiceOptions) {
+    private handleDialogClose(data?: IServiceOptions) {
         this.setState({ dialogOpen: false });
-        this.createService(data);
+        if(data){
+            this.createService(data);
+        }
     }
 
     private handleButtonClick(event: any) {
@@ -49,6 +52,6 @@ export default class AddServiceAction extends React.Component<IAddServiceActionP
     }
 
     private createService(data: IServiceOptions){
-        this.props.login.api.addService(data);
+        this.props.login.api.addService(data).then(this.props.updateServices);
     }
 }

@@ -1,6 +1,7 @@
+import { ListItem, ListItemText } from '@material-ui/core';
 import * as React from 'react';
 
-import { IService } from '../../../STSO/KongAdminApi';
+import { IService } from 'src/STSO/KongAdminApi';
 
 
 interface IServiceProps extends React.Props<any> {
@@ -8,7 +9,7 @@ interface IServiceProps extends React.Props<any> {
 }
 
 export default ({service}: IServiceProps) =>
-    <div>
-        {service.id}
-        {service.name}
-    </div>
+    <ListItem>
+        <ListItemText primary={service.id} />
+        <ListItemText primary={service.name} />
+    </ListItem>

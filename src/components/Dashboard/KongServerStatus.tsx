@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Card, CardContent, CardHeader, TableRow } from '@material-ui/core';
+import { Card, CardContent, CardHeader } from '@material-ui/core';
 
 import NodeHostName from 'src/components/Dashboard/nodeInfo/NodeHostName';
 import NodeTagLine from 'src/components/Dashboard/nodeInfo/NodeTagLine';
@@ -56,18 +56,10 @@ class KongServerStatus extends React.Component<IKongServerStatusProps, IKongServ
             <Card>
                 <CardHeader title="Server Status" />
                 <CardContent>
-                    <TableRow>
-                        <NodeHostName node={this.state.nodeInfo} />
-                    </TableRow>
-                    <TableRow>
-                        <NodeTagLine node={this.state.nodeInfo} />
-                    </TableRow>
-                    <TableRow>
-                        Node id: <NodeId node={this.state.nodeInfo} />
-                    </TableRow>
-                    <TableRow>
-                        Node Version: <NodeVersion node={this.state.nodeInfo} />
-                    </TableRow>
+                    <NodeHostName node={this.state.nodeInfo} /><br/>
+                    <NodeTagLine node={this.state.nodeInfo} /><br/>
+                    Node id: <NodeId node={this.state.nodeInfo} /><br/>
+                    Node Version: <NodeVersion node={this.state.nodeInfo} /><br/>
                 </CardContent>
             </Card>
         );

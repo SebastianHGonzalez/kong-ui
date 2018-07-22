@@ -29,6 +29,7 @@ export default class AddServiceForm extends React.Component<IAddServiceFormProps
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleHostChange = this.handleHostChange.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
     }
 
     public handleSubmit(event: React.FormEvent<any>) {
@@ -57,8 +58,8 @@ export default class AddServiceForm extends React.Component<IAddServiceFormProps
     public render() {
         const locale = this.props.locale;
         return (
-            <FormControl>
-                <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit}>
+                <FormControl>
                     <Input onChange={this.handleNameChange} />
                     <InputLabel>{locale.name} ({locale.optional})</InputLabel>
                     <br />
@@ -72,8 +73,8 @@ export default class AddServiceForm extends React.Component<IAddServiceFormProps
                     <Button color='secondary' type='reset' onClick={this.handleCancel}>
                         {locale.cancel}
                     </Button>
-                </form>
-            </FormControl>
+                </FormControl>
+            </form>
         );
     }
 }

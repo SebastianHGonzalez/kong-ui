@@ -1,4 +1,4 @@
-import { Card, CardActions, CardContent, CardHeader } from '@material-ui/core';
+import { Card, CardActions, CardContent, CardHeader, List } from '@material-ui/core';
 import * as React from 'react';
 import { connect } from 'react-redux';
 
@@ -6,9 +6,9 @@ import AsyncContent from 'src/components/common/AsyncContent';
 import AddServiceAction from 'src/components/Dashboard/services/AddServiceAction';
 import Service from 'src/components/Dashboard/services/Service';
 import { ILoginData } from 'src/reducers/LoginReducer';
+import { IStoreState } from 'src/store/InitialState';
 import { IService } from 'src/STSO/KongAdminApi';
 import Locale from 'src/STSO/locale/Locale';
-import { IStoreState } from '../../store/InitialState';
 
 
 interface IServerServicesProps extends React.Props<any> {
@@ -28,6 +28,8 @@ export class KongServerServices extends React.Component<IServerServicesProps, IS
         this.state = {
             services: null
         }
+
+        this.fetchServices = this.fetchServices.bind(this);
     }
 
     public componentDidMount() {
@@ -39,7 +41,7 @@ export class KongServerServices extends React.Component<IServerServicesProps, IS
             <Card>
                 <CardHeader title="Services" />
                 <CardActions>
-                    <AddServiceAction locale={this.props.locale} login={this.props.login} />
+                    <AddServiceAction locale={this.props.locale} login={this.props.login} updateServices={this.fetchServices} />
                 </CardActions>
                 <CardContent>
                     <AsyncContent content={this.services} />
@@ -60,7 +62,11 @@ export class KongServerServices extends React.Component<IServerServicesProps, IS
         if (services == null) {
             return null;
         } else if (services.length) {
-            return services.map(toService);
+            return (
+                <List>
+                {services.map(toService)}
+                </List>
+        );
         }
         return this.renderNoServices();
     }
@@ -71,7 +77,7 @@ export class KongServerServices extends React.Component<IServerServicesProps, IS
 }
 
 function toService(service: IService) {
-    return <Service service={service} />
+    return <Service key={service.id} service={service} />
 }
 
 function mapStateToProps({ locale }: IStoreState) {
