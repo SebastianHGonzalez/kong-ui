@@ -1,8 +1,9 @@
-import { Card, CardContent, CardHeader } from '@material-ui/core';
+import { Card, CardActions, CardContent, CardHeader } from '@material-ui/core';
 import * as React from 'react';
 import { connect } from 'react-redux';
 
 import AsyncContent from 'src/components/common/AsyncContent';
+import AddServiceAction from 'src/components/Dashboard/services/AddServiceAction';
 import Service from 'src/components/Dashboard/services/Service';
 import { ILoginData } from 'src/reducers/LoginReducer';
 import { IService } from 'src/STSO/KongAdminApi';
@@ -37,6 +38,9 @@ export class KongServerServices extends React.Component<IServerServicesProps, IS
         return (
             <Card>
                 <CardHeader title="Services" />
+                <CardActions>
+                    <AddServiceAction locale={this.props.locale} login={this.props.login} />
+                </CardActions>
                 <CardContent>
                     <AsyncContent content={this.services} />
                 </CardContent>
@@ -58,6 +62,10 @@ export class KongServerServices extends React.Component<IServerServicesProps, IS
         } else if (services.length) {
             return services.map(toService);
         }
+        return this.renderNoServices();
+    }
+
+    private renderNoServices() {
         return this.props.locale.noServices;
     }
 }

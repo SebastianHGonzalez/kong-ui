@@ -1,6 +1,17 @@
 import { IRestClient, IRestClientOptions, RestClient } from "./RestClient";
 
 
+export interface IServiceOptions {
+    name?: string;
+    protocol?: 'http' | 'https';
+    host: string;
+    port?: number;
+    path?: string;
+    retries?: number;
+    connect_timeout?: number;
+    write_timeout?: number;
+    url?: string;
+}
 export interface IService {
     id: string;
     created_at: number;
@@ -21,7 +32,7 @@ export interface INodeInformation {
     node_id: string;
     lua_version: string;
     plugins: {
-        available_on_server: string[], 
+        available_on_server: string[],
         enabled_in_cluster: string[]
     };
     configuration: any;
@@ -38,21 +49,22 @@ export interface IKongAdminApi {
     nodeInformation: () => Promise<INodeInformation>;
     nodeStatus: () => Promise<INodeStatus>;
     services: () => Promise<IService[]>;
+    addService: (serviceOptions: IServiceOptions) => Promise<IService>;
 }
 
 export default class KongAdminApi implements IKongAdminApi {
- 
+
     public static withUri(uri: string) {
         return new KongAdminApi(new RestClient(uri));
     }
 
-    constructor(private restClient: IRestClient){
+    constructor(private restClient: IRestClient) {
 
     }
 
-    public nodeInformation(){
+    public nodeInformation() {
         const options: IRestClientOptions = {
-            uri: this.restClient.endpoint('/'),
+            url: this.restClient.endpoint('/'),
         };
 
         return this.restClient.get(options)
@@ -60,7 +72,7 @@ export default class KongAdminApi implements IKongAdminApi {
 
     public nodeStatus() {
         const options: IRestClientOptions = {
-            uri: this.restClient.endpoint('/status'),
+            url: this.restClient.endpoint('/status'),
         };
 
         return this.restClient.get(options)
@@ -68,9 +80,17 @@ export default class KongAdminApi implements IKongAdminApi {
 
     public services() {
         const options: IRestClientOptions = {
-            uri: this.restClient.endpoint('/services'),
+            url: this.restClient.endpoint('/services'),
         };
 
         return this.restClient.get(options).then((response: any) => response.data);
+    }
+
+    public addService(serviceOptions: IServiceOptions): Promise<IService> {
+        const options: IRestClientOptions = {
+            data: serviceOptions,
+            url: this.restClient.endpoint('/services'),
+        }      
+        return this.restClient.post(options)  
     }
 }

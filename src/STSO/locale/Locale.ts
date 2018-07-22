@@ -1,6 +1,11 @@
 export default class Locale {
 
-    public get noServices() {
-        return "No Services";
-    }
+    public noServices = "No Services";
+    public add = "Add";
+    public cancel = "Cancel";
+    public addService = "Add Service";
+    public name = "Name";
+    public optional = "optional";
+    public host = "host";
+    public hostDescription = "The host of the upstream server.";
 }
