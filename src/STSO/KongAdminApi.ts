@@ -1,6 +1,21 @@
 import { IRestClient, IRestClientOptions, RestClient } from "./RestClient";
 
 
+export interface IService {
+    id: string;
+    created_at: number;
+    updated_at: number;
+    connect_timeout: number;
+    protocol: string;
+    host: string;
+    port: number;
+    path: string;
+    name: string;
+    retries: number;
+    read_timeout: number;
+    write_timeout: number;
+}
+
 export interface INodeInformation {
     hostname: string;
     node_id: string;
@@ -22,6 +37,7 @@ export interface INodeStatus {
 export interface IKongAdminApi {
     nodeInformation: () => Promise<INodeInformation>;
     nodeStatus: () => Promise<INodeStatus>;
+    services: () => Promise<IService[]>;
 }
 
 export default class KongAdminApi implements IKongAdminApi {
@@ -48,5 +64,13 @@ export default class KongAdminApi implements IKongAdminApi {
         };
 
         return this.restClient.get(options)
+    }
+
+    public services() {
+        const options: IRestClientOptions = {
+            uri: this.restClient.endpoint('/services'),
+        };
+
+        return this.restClient.get(options).then((response: any) => response.data);
     }
 }
