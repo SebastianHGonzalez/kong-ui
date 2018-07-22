@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { Card, CardContent, CardHeader, TableRow } from '@material-ui/core';
 
+import NodeVersion from 'src/components/Dashboard/nodeInfo/NodeVersion';
 import { ILoginData } from 'src/reducers/LoginReducer';
 import { INodeInformation, INodeStatus } from 'src/STSO/KongAdminApi';
 import NodeId from './nodeInfo/NodeId';
@@ -30,12 +31,12 @@ class KongServerStatus extends React.Component<IKongServerStatusProps, IKongServ
         this.setNodeStatus = this.setNodeStatus.bind(this);
     }
 
-    public setNodeInfo(nodeInfo: INodeInformation){
+    public setNodeInfo(nodeInfo: INodeInformation) {
         this.setState({ nodeInfo })
     }
 
-    public setNodeStatus(nodeStatus: INodeStatus){
-        this.setState({ nodeStatus })   
+    public setNodeStatus(nodeStatus: INodeStatus) {
+        this.setState({ nodeStatus })
     }
 
     public componentDidMount() {
@@ -54,10 +55,10 @@ class KongServerStatus extends React.Component<IKongServerStatusProps, IKongServ
                 <CardHeader title="Server Status" />
                 <CardContent>
                     <TableRow>
-                        Node id: <NodeId node={this.state.nodeInfo}/>
+                        Node id: <NodeId node={this.state.nodeInfo} />
                     </TableRow>
                     <TableRow>
-                        Node :
+                        Node Version: <NodeVersion node={this.state.nodeInfo} />
                     </TableRow>
                 </CardContent>
             </Card>
