@@ -24,17 +24,26 @@ const renderDashboard = ({ login }: IDashBoardProps) => (
 );
 
 const Dashboard = (props: IDashBoardProps) => {
-    const login: ILoginData = loginFromProps(props);
+    const login = loginFromProps(props);
     return login ? renderDashboard({ ...props, login }) : <Redirect to={PATH.LOGIN} />
 }
 
-function loginFromProps(props: IDashBoardProps): ILoginData {
+function loginFromProps(props: IDashBoardProps): ILoginData | null {
     if (props.login) {
         return props.login
     } else {
-        const login = new Login(queryString.parse(props.location.search).kong);
+        return loginFromQueryString(props);
+    }
+}
+
+function loginFromQueryString(props: IDashBoardProps): ILoginData | null {
+    const url = queryString.parse(props.location.search).kong;
+    if (url) {
+        const login = new Login(url);
         (props as any).setLogin(login);
         return login;
+    } else {
+        return null;
     }
 }
 
