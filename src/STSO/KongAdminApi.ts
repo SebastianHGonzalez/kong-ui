@@ -2,7 +2,16 @@ import { IRestClient, IRestClientOptions, RestClient } from "./RestClient";
 
 
 export interface INodeInformation {
+    hostname: string;
     node_id: string;
+    lua_version: string;
+    plugins: {
+        available_on_server: string[], 
+        enabled_in_cluster: string[]
+    };
+    configuration: any;
+    tagline: string;
+    version: string;
 }
 
 export interface INodeStatus {
