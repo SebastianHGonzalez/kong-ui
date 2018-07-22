@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import { Card, CardContent, CardHeader, TableRow } from '@material-ui/core';
 
+import NodeHostName from 'src/components/Dashboard/nodeInfo/NodeHostName';
+import NodeTagLine from 'src/components/Dashboard/nodeInfo/NodeTagLine';
 import NodeVersion from 'src/components/Dashboard/nodeInfo/NodeVersion';
 import { ILoginData } from 'src/reducers/LoginReducer';
 import { INodeInformation, INodeStatus } from 'src/STSO/KongAdminApi';
@@ -54,6 +56,12 @@ class KongServerStatus extends React.Component<IKongServerStatusProps, IKongServ
             <Card>
                 <CardHeader title="Server Status" />
                 <CardContent>
+                    <TableRow>
+                        <NodeHostName node={this.state.nodeInfo} />
+                    </TableRow>
+                    <TableRow>
+                        <NodeTagLine node={this.state.nodeInfo} />
+                    </TableRow>
                     <TableRow>
                         Node id: <NodeId node={this.state.nodeInfo} />
                     </TableRow>
