@@ -31,5 +31,15 @@ export const createService = (serviceOptions: IServiceOptions) => (dispatch: Dis
         .login
         .api
         .addService(serviceOptions)
-        .then(() => dispatch((fetchServices() as any)));
+        .then(() =>
+            dispatch(fetchServices() as any));
+}
+
+export const deleteService = (serviceId: string) => (dispatch: Dispatch, getState: any) => {
+    getState()
+        .login
+        .api
+        .deleteService(serviceId)
+        .then(() =>
+            dispatch(fetchServices() as any));
 }

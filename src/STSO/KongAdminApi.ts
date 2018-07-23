@@ -93,4 +93,11 @@ export default class KongAdminApi implements IKongAdminApi {
         }      
         return this.restClient.post(options)  
     }
+
+    public deleteService(serviceId: string): Promise<any> {
+        const options: IRestClientOptions = {
+            url: this.restClient.endpoint(`/services/${serviceId}`),
+        }
+        return this.restClient.delete(options);
+    }
 }

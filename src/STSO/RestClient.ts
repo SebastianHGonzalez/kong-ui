@@ -9,6 +9,7 @@ export interface IRestClient {
     endpoint: (endpointPath: string, trailingSlash?: boolean) => string;
     get: (options: IRestClientOptions) => Promise<any>;
     post: (options: IRestClientOptions) => Promise<any>;
+    delete: (options: IRestClientOptions) => Promise<any>;
 }
 
 export class RestClient implements IRestClient {
@@ -25,6 +26,11 @@ export class RestClient implements IRestClient {
         return this.axiosInstance.request({ method: 'post', ...options })
             .then((axiosResponse: AxiosResponse) => Promise.resolve(axiosResponse.data));
     }
+
+    public delete<T>(options: IRestClientOptions): Promise<T> {
+        return this.axiosInstance.request({method: 'delete', ...options})
+        .then((axiosResponse: AxiosResponse) => Promise.resolve(axiosResponse.data));
+    } 
 
     public endpoint(endpointPath: string, trailingSlash: boolean = true): string {
         const fullPath = urljoin(this.uri, endpointPath, '/');

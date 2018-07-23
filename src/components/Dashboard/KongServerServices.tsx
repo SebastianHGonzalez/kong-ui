@@ -56,9 +56,9 @@ export class KongServerServices extends React.Component<IServerServicesProps, an
         } else if (services.length) {
             return (
                 <List>
-                {services.map(toService)}
+                    {services.map(service => this.toService(service, this.props.locale))}
                 </List>
-        );
+            );
         }
         return this.renderNoServices();
     }
@@ -66,10 +66,11 @@ export class KongServerServices extends React.Component<IServerServicesProps, an
     private renderNoServices() {
         return this.props.locale.noServices;
     }
-}
 
-function toService(service: IService) {
-    return <Service key={service.id} service={service} />
+    private toService(service: IService, locale: Locale) {
+        const deleteService = () => (this.props as any).deleteService(service.id);
+        return <Service key={service.id} service={service} locale={locale} deleteService={deleteService} />
+    }
 }
 
 function mapStateToProps({ locale, services }: IStoreState) {

@@ -8,4 +8,6 @@ export default class Locale {
     public optional = "optional";
     public host = "host";
     public hostDescription = "The host of the upstream server.";
+    public delete = "delete";
+    public service = "service";
 }

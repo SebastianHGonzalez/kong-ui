@@ -21,7 +21,7 @@ export default class AddServiceDialog extends React.Component<IAddServiceDialogP
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    public handleSubmit(data: IServiceOptions){
+    public handleSubmit(data: IServiceOptions) {
         this.props.onClose(data);
     }
 
@@ -32,8 +32,12 @@ export default class AddServiceDialog extends React.Component<IAddServiceDialogP
     public render() {
         return (
             <Dialog open={this.props.open} onClose={this.handleClose}>
-                <DialogTitle>{this.props.locale.addService}</DialogTitle>
-                <AddServiceForm onSubmit={this.handleSubmit} onCancel={this.handleClose} locale={this.props.locale} />
+                <DialogTitle>
+                    {this.props.locale.addService}
+                </DialogTitle>
+                <AddServiceForm onSubmit={this.handleSubmit}
+                    onCancel={this.handleClose}
+                    locale={this.props.locale} />
             </Dialog>
         );
     }

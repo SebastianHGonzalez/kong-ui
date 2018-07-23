@@ -34,15 +34,19 @@ export class AddServiceAction extends React.Component<IAddServiceActionProps, IA
     public render() {
         return (
             <div>
-                <Button color='primary' onClick={this.handleButtonClick}>{this.props.locale.add}</Button>
-                <AddServiceDialog locale={this.props.locale} open={this.state.dialogOpen} onClose={this.handleDialogClose} />
+                <Button color='primary' onClick={this.handleButtonClick}>
+                    {this.props.locale.add} {this.props.locale.service}
+                </Button>
+                <AddServiceDialog locale={this.props.locale}
+                    open={this.state.dialogOpen}
+                    onClose={this.handleDialogClose} />
             </div>
         );
     }
 
     private handleDialogClose(data?: IServiceOptions) {
         this.setState({ dialogOpen: false });
-        if(data){
+        if (data) {
             this.createService(data);
         }
     }
@@ -52,7 +56,7 @@ export class AddServiceAction extends React.Component<IAddServiceActionProps, IA
         this.setState({ dialogOpen: !this.state.dialogOpen })
     }
 
-    private createService(data: IServiceOptions){
+    private createService(data: IServiceOptions) {
         (this.props as any).createService(data);
     }
 }
