@@ -53,7 +53,7 @@ export class AddServiceAction extends React.Component<IAddServiceActionProps, IA
     }
 
     private createService(data: IServiceOptions){
-        this.props.login.api.addService(data).then((this.props as any).fetchServices);
+        (this.props as any).createService(data);
     }
 }
 

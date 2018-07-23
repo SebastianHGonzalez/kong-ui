@@ -1,7 +1,7 @@
 import { Action, Dispatch } from "redux";
 
 import ServiceActionTypes from "src/actions/ServiceActionTypes";
-import { IService } from "src/STSO/KongAdminApi";
+import { IService, IServiceOptions } from "src/STSO/KongAdminApi";
 
 
 export type ServiceActionCreator = (services: IService[]) => IServiceAction;
@@ -24,4 +24,12 @@ export const fetchServices = () => (dispatch: Dispatch, getState: any) => {
         .then((services: IService[]) =>
             dispatch(setServices(services))
         );
+}
+
+export const createService = (serviceOptions: IServiceOptions) => (dispatch: Dispatch, getState: any) => {
+    getState()
+        .login
+        .api
+        .addService(serviceOptions)
+        .then(() => dispatch((fetchServices() as any)));
 }
