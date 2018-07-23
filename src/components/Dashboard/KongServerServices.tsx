@@ -2,6 +2,7 @@ import { Card, CardActions, CardContent, CardHeader, List } from '@material-ui/c
 import * as React from 'react';
 import { connect } from 'react-redux';
 
+import * as serviceActionCreators from 'src/actions/ServiceActionCreators';
 import AsyncContent from 'src/components/common/AsyncContent';
 import AddServiceAction from 'src/components/Dashboard/services/AddServiceAction';
 import Service from 'src/components/Dashboard/services/Service';
@@ -14,20 +15,13 @@ import Locale from 'src/STSO/locale/Locale';
 interface IServerServicesProps extends React.Props<any> {
     login: ILoginData;
     locale: Locale;
+    services: IService[];
 }
 
-interface IServerServicesState {
-    services: IService[] | null;
-}
-
-export class KongServerServices extends React.Component<IServerServicesProps, IServerServicesState> {
+export class KongServerServices extends React.Component<IServerServicesProps, any> {
 
     constructor(props: IServerServicesProps) {
         super(props);
-
-        this.state = {
-            services: null
-        }
 
         this.fetchServices = this.fetchServices.bind(this);
     }
@@ -51,13 +45,11 @@ export class KongServerServices extends React.Component<IServerServicesProps, IS
     }
 
     private fetchServices() {
-        this.props.login.api
-            .services()
-            .then((services: IService[]) => this.setState({ services }));
+        (this.props as any).fetchServices();
     }
 
     private get services() {
-        const services = this.state.services;
+        const services = this.props.services;
 
         if (services == null) {
             return null;
@@ -80,10 +72,11 @@ function toService(service: IService) {
     return <Service key={service.id} service={service} />
 }
 
-function mapStateToProps({ locale }: IStoreState) {
+function mapStateToProps({ locale, services }: IStoreState) {
     return {
         locale,
+        services,
     }
 }
 
-export default connect(mapStateToProps)(KongServerServices);
+export default connect(mapStateToProps, serviceActionCreators)(KongServerServices);

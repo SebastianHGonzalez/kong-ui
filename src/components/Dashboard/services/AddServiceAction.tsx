@@ -1,11 +1,12 @@
 import { Button } from '@material-ui/core';
 import * as React from 'react';
+import { connect } from 'react-redux';
 
+import * as serviceActionCreators from 'src/actions/ServiceActionCreators';
 import AddServiceDialog from 'src/components/Dashboard/services/AddServiceDialog';
 import { ILoginData } from 'src/reducers/LoginReducer';
 import { IServiceOptions } from 'src/STSO/KongAdminApi';
 import Locale from 'src/STSO/locale/Locale';
-
 
 interface IAddServiceActionProps extends React.Props<any> {
     login: ILoginData;
@@ -17,7 +18,7 @@ interface IAddServiceActionState {
     dialogOpen: boolean;
 }
 
-export default class AddServiceAction extends React.Component<IAddServiceActionProps, IAddServiceActionState> {
+export class AddServiceAction extends React.Component<IAddServiceActionProps, IAddServiceActionState> {
 
     constructor(props: IAddServiceActionProps) {
         super(props);
@@ -52,6 +53,8 @@ export default class AddServiceAction extends React.Component<IAddServiceActionP
     }
 
     private createService(data: IServiceOptions){
-        this.props.login.api.addService(data).then(this.props.updateServices);
+        this.props.login.api.addService(data).then((this.props as any).fetchServices);
     }
 }
+
+export default connect(null, serviceActionCreators)(AddServiceAction);
