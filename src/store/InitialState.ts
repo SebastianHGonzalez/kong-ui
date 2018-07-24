@@ -4,13 +4,19 @@ import Locale from "src/STSO/locale/Locale";
 export interface IStoreState {
     locale: Locale;
     login: any;
-    services: IService[];
+    services: {
+        loading: boolean;
+        data: IService[]
+    };
 }
 
 const InitialState: IStoreState = {
     locale: new Locale(),
     login: null,
-    services: [],
+    services: {
+        data: [],
+        loading: true,
+    },
 };
 
 export default InitialState;

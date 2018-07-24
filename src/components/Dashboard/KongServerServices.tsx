@@ -15,7 +15,10 @@ import Locale from 'src/STSO/locale/Locale';
 interface IServerServicesProps extends React.Props<any> {
     login: ILoginData;
     locale: Locale;
-    services: IService[];
+    services: {
+        loading: boolean,
+        data: IService[],
+    };
 }
 
 export class KongServerServices extends React.Component<IServerServicesProps, any> {
@@ -51,12 +54,12 @@ export class KongServerServices extends React.Component<IServerServicesProps, an
     private get services() {
         const services = this.props.services;
 
-        if (services == null) {
+        if (services.loading) {
             return null;
-        } else if (services.length) {
+        } else if (services.data.length) {
             return (
                 <List>
-                    {services.map(service => this.toService(service, this.props.locale))}
+                    {services.data.map(service => this.toService(service, this.props.locale))}
                 </List>
             );
         }

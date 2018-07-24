@@ -5,10 +5,15 @@ import ServiceActionTypes from "src/actions/ServiceActionTypes";
 import { IService } from "src/STSO/KongAdminApi";
 
 
-export default (state: IService[] = InitialState.services, action: IServiceAction): IService[] => {
+interface IServiceState {
+    loading: boolean;
+    data: IService[];
+}
+
+export default (state: IServiceState = InitialState.services, action: IServiceAction): IServiceState => {
 
     switch (action.type) {
-        case ServiceActionTypes.SET_SERVICES: return action.services;
+        case ServiceActionTypes.SET_SERVICES: return { loading: false, data: [...action.services] };
         default: return state;
     }
 }
