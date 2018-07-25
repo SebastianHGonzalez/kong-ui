@@ -17,7 +17,7 @@ interface IDashBoardProps extends RouteComponentProps<any> {
     setLogin: (login: ILoginData) => any;
 }
 
-const renderDashboard = ({ login }: IDashBoardProps) => (
+const renderDashboard = () => (
     <div>
         <KongServerStatus />
         <KongServerServices />
@@ -26,7 +26,7 @@ const renderDashboard = ({ login }: IDashBoardProps) => (
 
 const Dashboard = (props: IDashBoardProps) => {
     const login = loginFromProps(props);
-    return login ? renderDashboard({ ...props, login }) : <Redirect to={PATH.LOGIN} />
+    return login ? renderDashboard() : <Redirect to={PATH.LOGIN} />
 }
 
 function loginFromProps(props: IDashBoardProps): ILoginData | null {
