@@ -14,12 +14,13 @@ import Login from 'src/STSO/Login';
 
 interface IDashBoardProps extends RouteComponentProps<any> {
     login: ILoginData;
+    setLogin: (login: ILoginData) => any;
 }
 
 const renderDashboard = ({ login }: IDashBoardProps) => (
     <div>
-        <KongServerStatus login={login} />
-        <KongServerServices login={login} />
+        <KongServerStatus />
+        <KongServerServices />
     </div>
 );
 
@@ -40,7 +41,7 @@ function loginFromQueryString(props: IDashBoardProps): ILoginData | null {
     const url = queryString.parse(props.location.search).kong;
     if (url) {
         const login = new Login(url);
-        (props as any).setLogin(login);
+        props.setLogin(login);
         return login;
     } else {
         return null;

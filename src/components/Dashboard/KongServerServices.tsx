@@ -6,49 +6,38 @@ import * as serviceActionCreators from 'src/actions/ServiceActionCreators';
 import AsyncContent from 'src/components/common/AsyncContent';
 import AddServiceAction from 'src/components/Dashboard/services/AddServiceAction';
 import Service from 'src/components/Dashboard/services/Service';
-import { ILoginData } from 'src/reducers/LoginReducer';
 import { IStoreState } from 'src/store/InitialState';
 import { IService } from 'src/STSO/KongAdminApi';
 import Locale from 'src/STSO/locale/Locale';
 
 
 interface IServerServicesProps extends React.Props<any> {
-    login: ILoginData;
     locale: Locale;
     services: {
         loading: boolean,
         data: IService[],
     };
+    deleteService: (id: string) => any;
+    fetchServices: () => any;
 }
 
 export class KongServerServices extends React.Component<IServerServicesProps, any> {
-
-    constructor(props: IServerServicesProps) {
-        super(props);
-
-        this.fetchServices = this.fetchServices.bind(this);
-    }
-
     public componentDidMount() {
-        this.fetchServices();
+        this.props.fetchServices()
     }
-
+    
     public render() {
         return (
             <Card>
                 <CardHeader title="Services" />
                 <CardActions>
-                    <AddServiceAction locale={this.props.locale} login={this.props.login} updateServices={this.fetchServices} />
+                    <AddServiceAction />
                 </CardActions>
                 <CardContent>
                     <AsyncContent content={this.services} />
                 </CardContent>
             </Card>
         );
-    }
-
-    private fetchServices() {
-        (this.props as any).fetchServices();
     }
 
     private get services() {
@@ -59,7 +48,11 @@ export class KongServerServices extends React.Component<IServerServicesProps, an
         } else if (services.data.length) {
             return (
                 <List>
-                    {services.data.map(service => this.toService(service, this.props.locale))}
+                    {
+                        services.data.map(service =>
+                            <Service key={service.id} service={service} />
+                        )
+                    }
                 </List>
             );
         }
@@ -67,12 +60,7 @@ export class KongServerServices extends React.Component<IServerServicesProps, an
     }
 
     private renderNoServices() {
-        return this.props.locale.noServices;
-    }
-
-    private toService(service: IService, locale: Locale) {
-        const deleteService = () => (this.props as any).deleteService(service.id);
-        return <Service key={service.id} service={service} locale={locale} deleteService={deleteService} />
+        return `${this.props.locale.no} ${this.props.locale.services}`;
     }
 }
 

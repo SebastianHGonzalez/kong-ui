@@ -7,7 +7,6 @@ import NodeHostName from 'src/components/Dashboard/nodeInfo/NodeHostName';
 import NodeId from 'src/components/Dashboard/nodeInfo/NodeId';
 import NodeTagLine from 'src/components/Dashboard/nodeInfo/NodeTagLine';
 import NodeVersion from 'src/components/Dashboard/nodeInfo/NodeVersion';
-import { ILoginData } from 'src/reducers/LoginReducer';
 import { INodeInformationState } from 'src/reducers/NodeInformationReducer';
 import { INodeStatusState } from 'src/reducers/NodeStatusReducer';
 import { IStoreState } from 'src/store/InitialState';
@@ -18,7 +17,6 @@ import { fetchNodeStatus } from 'src/actions/NodeStatusActionCreators';
 
 
 interface IKongServerStatusProps extends React.Props<any> {
-    login: ILoginData
     nodeInformation: INodeInformationState;
     nodeStatus: INodeStatusState;
     fetchNodeInformation: () => any;

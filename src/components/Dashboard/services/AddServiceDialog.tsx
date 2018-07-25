@@ -1,6 +1,8 @@
 import { Dialog, DialogTitle } from '@material-ui/core';
 import * as React from 'react';
+import { connect } from 'react-redux';
 
+import { IStoreState } from 'src/store/InitialState';
 import { IServiceOptions } from 'src/STSO/KongAdminApi';
 import Locale from 'src/STSO/locale/Locale';
 import AddServiceForm from './AddServiceForm';
@@ -12,7 +14,7 @@ interface IAddServiceDialogProps extends React.Props<any> {
     locale: Locale;
 }
 
-export default class AddServiceDialog extends React.Component<IAddServiceDialogProps> {
+export class AddServiceDialog extends React.Component<IAddServiceDialogProps> {
 
     constructor(props: IAddServiceDialogProps) {
         super(props);
@@ -33,12 +35,19 @@ export default class AddServiceDialog extends React.Component<IAddServiceDialogP
         return (
             <Dialog open={this.props.open} onClose={this.handleClose}>
                 <DialogTitle>
-                    {this.props.locale.addService}
+                    {`${this.props.locale.add} ${this.props.locale.service}`}
                 </DialogTitle>
                 <AddServiceForm onSubmit={this.handleSubmit}
-                    onCancel={this.handleClose}
-                    locale={this.props.locale} />
+                    onCancel={this.handleClose} />
             </Dialog>
         );
     }
 }
+
+function mapStateToProps({ locale }: IStoreState) {
+    return {
+        locale,
+    }
+}
+
+export default connect(mapStateToProps)(AddServiceDialog);

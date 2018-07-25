@@ -5,13 +5,14 @@ import { connect } from 'react-redux';
 import * as serviceActionCreators from 'src/actions/ServiceActionCreators';
 import AddServiceDialog from 'src/components/Dashboard/services/AddServiceDialog';
 import { ILoginData } from 'src/reducers/LoginReducer';
+import { IStoreState } from 'src/store/InitialState';
 import { IServiceOptions } from 'src/STSO/KongAdminApi';
 import Locale from 'src/STSO/locale/Locale';
 
 interface IAddServiceActionProps extends React.Props<any> {
     login: ILoginData;
     locale: Locale;
-    updateServices: () => void;
+    createService: (data: IServiceOptions) => any;
 }
 
 interface IAddServiceActionState {
@@ -37,8 +38,7 @@ export class AddServiceAction extends React.Component<IAddServiceActionProps, IA
                 <Button color='primary' onClick={this.handleButtonClick}>
                     {this.props.locale.add} {this.props.locale.service}
                 </Button>
-                <AddServiceDialog locale={this.props.locale}
-                    open={this.state.dialogOpen}
+                <AddServiceDialog open={this.state.dialogOpen}
                     onClose={this.handleDialogClose} />
             </div>
         );
@@ -57,8 +57,14 @@ export class AddServiceAction extends React.Component<IAddServiceActionProps, IA
     }
 
     private createService(data: IServiceOptions) {
-        (this.props as any).createService(data);
+        this.props.createService(data);
     }
 }
 
-export default connect(null, serviceActionCreators)(AddServiceAction);
+function mapStateToProps({ locale, login }: IStoreState) {
+    return {
+        locale,
+        login,
+    };
+}
+export default connect(mapStateToProps, serviceActionCreators)(AddServiceAction);

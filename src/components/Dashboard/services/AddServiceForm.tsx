@@ -1,6 +1,8 @@
 import { Button, FormControl, FormHelperText, Input, InputLabel } from '@material-ui/core';
 import * as React from 'react';
+import { connect } from 'react-redux';
 
+import { IStoreState } from 'src/store/InitialState';
 import { IServiceOptions } from 'src/STSO/KongAdminApi';
 import Locale from 'src/STSO/locale/Locale';
 
@@ -16,7 +18,7 @@ export interface IAddServiceFormState {
     host: string;
 }
 
-export default class AddServiceForm extends React.Component<IAddServiceFormProps, IAddServiceFormState> {
+export class AddServiceForm extends React.Component<IAddServiceFormProps, IAddServiceFormState> {
 
     constructor(props: IAddServiceFormProps) {
         super(props);
@@ -78,3 +80,11 @@ export default class AddServiceForm extends React.Component<IAddServiceFormProps
         );
     }
 }
+
+function mapStateToProps({locale}: IStoreState){
+    return {
+        locale,
+    };
+}
+
+export default connect(mapStateToProps)(AddServiceForm);
