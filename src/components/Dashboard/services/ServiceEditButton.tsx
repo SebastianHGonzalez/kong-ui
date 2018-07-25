@@ -2,15 +2,17 @@ import { Button } from '@material-ui/core';
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import EditServiceDialog from 'src/components/Dashboard/services/EditServiceDialog';
+import { updateService } from 'src/actions/ServiceActionCreators';
+import ServiceDialog from 'src/components/Dashboard/services/ServiceDialog';
 import { IStoreState } from 'src/store/InitialState';
-import { IService } from 'src/STSO/KongAdminApi';
+import { IService, IServiceOptions } from 'src/STSO/api/Service';
 import Locale from 'src/STSO/locale/Locale';
 
 
 export interface IServiceEditButtonProps extends React.Props<any> {
     service: IService;
     locale: Locale;
+    updateService: (data: IServiceOptions) => any;
 }
 
 export interface IServiceEditButtonState {
@@ -35,10 +37,13 @@ export class ServiceEditButton extends React.Component<IServiceEditButtonProps, 
         });
     }
 
-    public handleClose() {
+    public handleClose(data: IService) {
         this.setState({
             dialogOpen: false,
         });
+        if (data.id) {
+            this.props.updateService(data);
+        }
     }
 
     public render() {
@@ -47,7 +52,7 @@ export class ServiceEditButton extends React.Component<IServiceEditButtonProps, 
                 <Button onClick={this.handleClick}>
                     {`${this.props.locale.edit} ${this.props.locale.service}`}
                 </Button>
-                <EditServiceDialog open={this.state.dialogOpen}
+                <ServiceDialog open={this.state.dialogOpen}
                     onClose={this.handleClose}
                     service={this.props.service} />
             </div>
@@ -61,4 +66,4 @@ function mapStateToProps({ locale }: IStoreState) {
     };
 }
 
-export default connect(mapStateToProps)(ServiceEditButton);
+export default connect(mapStateToProps, { updateService })(ServiceEditButton);

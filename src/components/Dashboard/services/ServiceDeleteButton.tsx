@@ -3,9 +3,9 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import { deleteService } from 'src/actions/ServiceActionCreators';
-import { IService } from 'src/STSO/KongAdminApi';
+import { IStoreState } from 'src/store/InitialState';
+import { IService } from 'src/STSO/api/Service';
 import Locale from 'src/STSO/locale/Locale';
-import { IStoreState } from '../../../store/InitialState';
 
 interface IServiceDeleteButtonProps extends React.Props<any> {
     service: IService;

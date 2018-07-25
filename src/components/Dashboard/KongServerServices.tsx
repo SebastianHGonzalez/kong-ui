@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 
 import * as serviceActionCreators from 'src/actions/ServiceActionCreators';
 import AsyncContent from 'src/components/common/AsyncContent';
-import AddServiceAction from 'src/components/Dashboard/services/AddServiceAction';
 import Service from 'src/components/Dashboard/services/Service';
+import ServiceAddButton from 'src/components/Dashboard/services/ServiceAddButton';
 import { IStoreState } from 'src/store/InitialState';
-import { IService } from 'src/STSO/KongAdminApi';
+import { IService } from 'src/STSO/api/Service';
 import Locale from 'src/STSO/locale/Locale';
 
 
@@ -31,7 +31,7 @@ export class KongServerServices extends React.Component<IServerServicesProps, an
             <Card>
                 <CardHeader title="Services" />
                 <CardActions>
-                    <AddServiceAction />
+                    <ServiceAddButton />
                 </CardActions>
                 <CardContent>
                     <AsyncContent content={this.services} />

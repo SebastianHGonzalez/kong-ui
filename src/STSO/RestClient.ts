@@ -10,6 +10,7 @@ export interface IRestClient {
     get: (options: IRestClientOptions) => Promise<any>;
     post: (options: IRestClientOptions) => Promise<any>;
     delete: (options: IRestClientOptions) => Promise<any>;
+    patch: (options: IRestClientOptions) => Promise<any>;
 }
 
 export class RestClient implements IRestClient {
@@ -29,6 +30,11 @@ export class RestClient implements IRestClient {
 
     public delete<T>(options: IRestClientOptions): Promise<T> {
         return this.axiosInstance.request({method: 'delete', ...options})
+        .then((axiosResponse: AxiosResponse) => Promise.resolve(axiosResponse.data));
+    } 
+
+    public patch<T>(options: IRestClientOptions): Promise<T> {
+        return this.axiosInstance.request({method: 'patch', ...options})
         .then((axiosResponse: AxiosResponse) => Promise.resolve(axiosResponse.data));
     } 
 

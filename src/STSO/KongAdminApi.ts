@@ -1,31 +1,6 @@
+import { IService, IServiceOptions } from "src/STSO/api/Service";
 import { IRestClient, IRestClientOptions, RestClient } from "./RestClient";
 
-
-export interface IServiceOptions {
-    name?: string;
-    protocol?: 'http' | 'https';
-    host: string;
-    port?: number;
-    path?: string;
-    retries?: number;
-    connect_timeout?: number;
-    write_timeout?: number;
-    url?: string;
-}
-export interface IService {
-    id: string;
-    created_at: number;
-    updated_at: number;
-    connect_timeout: number;
-    protocol: string;
-    host: string;
-    port: number;
-    path: string;
-    name: string;
-    retries: number;
-    read_timeout: number;
-    write_timeout: number;
-}
 
 export interface INodeInformation {
     hostname: string;
@@ -50,10 +25,12 @@ export interface IKongAdminApi {
     nodeStatus: () => Promise<INodeStatus>;
     services: () => Promise<IService[]>;
     addService: (serviceOptions: IServiceOptions) => Promise<IService>;
+    updateService: (serviceOptions: IServiceOptions) => Promise<IService>;
+    deleteService: (serviceId: string) => Promise<any>;
 }
 
 export default class KongAdminApi implements IKongAdminApi {
-
+    
     public static withUri(uri: string) {
         return new KongAdminApi(new RestClient(uri));
     }
@@ -100,4 +77,13 @@ export default class KongAdminApi implements IKongAdminApi {
         }
         return this.restClient.delete(options);
     }
+
+    public updateService(serviceOptions: IService): Promise<IService>{
+        const options: IRestClientOptions = {
+            data: serviceOptions,
+            url: this.restClient.endpoint(`/services/${serviceOptions.id}`)
+        }
+        return this.restClient.patch(options);
+    }
+
 }

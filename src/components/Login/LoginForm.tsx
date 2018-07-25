@@ -2,8 +2,9 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 
-import { FormControl, Input, InputLabel } from '@material-ui/core';
+import { FormControl, InputLabel } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import Input from '@material-ui/core/Input';
 
 import * as loginActionCreators from 'src/actions/LoginActionCreators';
 import { PATH } from 'src/Routes';

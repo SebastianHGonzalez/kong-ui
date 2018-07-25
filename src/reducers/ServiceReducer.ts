@@ -2,7 +2,7 @@ import InitialState from "src/store/InitialState";
 
 import { IServiceAction } from "src/actions/ServiceActionCreators";
 import ServiceActionTypes from "src/actions/ServiceActionTypes";
-import { IService } from "src/STSO/KongAdminApi";
+import { IService } from "src/STSO/api/Service";
 
 
 export interface IServiceState {

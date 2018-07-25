@@ -1,7 +1,7 @@
 import { ListItem, ListItemText } from '@material-ui/core';
 import * as React from 'react';
 
-import { IService } from 'src/STSO/KongAdminApi';
+import { IService } from 'src/STSO/api/Service';
 import ServiceDeleteButton from './ServiceDeleteButton';
 import ServiceEditButton from './ServiceEditButton';
 
