@@ -5,7 +5,7 @@ import ServiceActionTypes from "src/actions/ServiceActionTypes";
 import { IService } from "src/STSO/KongAdminApi";
 
 
-interface IServiceState {
+export interface IServiceState {
     loading: boolean;
     data: IService[];
 }

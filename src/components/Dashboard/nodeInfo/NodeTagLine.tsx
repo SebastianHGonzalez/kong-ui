@@ -1,7 +1,12 @@
 import * as React from 'react';
 
 import AsyncContent from 'src/components/common/AsyncContent';
-import { INodeInformation } from 'src/STSO/KongAdminApi';
+import { INodeInformationState } from 'src/reducers/NodeInformationReducer';
 
-export default (props: { node: INodeInformation | null }) =>
-    <AsyncContent content={props.node && props.node.tagline} />
+
+interface INodeTagLineProps extends React.Props<any> {
+    node: INodeInformationState;
+}
+
+export default (props: INodeTagLineProps) =>
+    <AsyncContent content={props.node.loading ? null : props.node.data && props.node.data.tagline} />
