@@ -1,5 +1,5 @@
 export default {
-    SET_SERVICES: 'SET_SERVICES',    
+    SET_ROUTES: 'SET_ROUTES',    
     START_LOADING: 'START_LOADING',
     STOP_LOADING: 'STOP_LOADING',
 }

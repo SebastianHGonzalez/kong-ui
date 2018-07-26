@@ -7,16 +7,13 @@ import AsyncContent from 'src/components/common/AsyncContent';
 import Service from 'src/components/Dashboard/services/Service';
 import ServiceAddButton from 'src/components/Dashboard/services/ServiceAddButton';
 import { IStoreState } from 'src/store/InitialState';
-import { IService } from 'src/STSO/api/Service';
 import Locale from 'src/STSO/locale/Locale';
+import { IServiceState } from '../../reducers/ServiceReducer';
 
 
 interface IServerServicesProps extends React.Props<any> {
     locale: Locale;
-    services: {
-        loading: boolean,
-        data: IService[],
-    };
+    services: IServiceState;
     deleteService: (id: string) => any;
     fetchServices: () => any;
 }

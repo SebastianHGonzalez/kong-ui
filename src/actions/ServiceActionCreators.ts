@@ -11,6 +11,16 @@ export interface IServiceAction extends Action {
     services: IService[];
 }
 
+export const startLoading = () => 
+({
+    type: ServiceActionTypes.START_LOADING,
+})
+
+export const stopLoading = () => 
+({
+    type: ServiceActionTypes.STOP_LOADING,
+})
+
 export const setServices: ServiceActionCreator = (services: IService[] = []): IServiceAction =>
     ({
         services,
@@ -18,6 +28,7 @@ export const setServices: ServiceActionCreator = (services: IService[] = []): IS
     });
 
 export const fetchServices = () => (dispatch: Dispatch, getState: any) => {
+    dispatch(startLoading());
     getState()
         .login
         .api
@@ -28,6 +39,7 @@ export const fetchServices = () => (dispatch: Dispatch, getState: any) => {
 }
 
 export const createService = (serviceOptions: IServiceOptions) => (dispatch: Dispatch, getState: any) => {
+    dispatch(startLoading());
     getState()
         .login
         .api
@@ -37,6 +49,7 @@ export const createService = (serviceOptions: IServiceOptions) => (dispatch: Dis
 }
 
 export const deleteService = (serviceId: string) => (dispatch: Dispatch, getState: any) => {
+    dispatch(startLoading());
     getState()
         .login
         .api
@@ -46,6 +59,7 @@ export const deleteService = (serviceId: string) => (dispatch: Dispatch, getStat
 }
 
 export const updateService = (options: IServiceOptions) => (dispatch: Dispatch, getState: () => IStoreState) => {
+    dispatch(startLoading());
     getState()
         .login
         .api

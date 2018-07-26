@@ -1,4 +1,4 @@
-import { IServiceFormState } from "../../components/Dashboard/services/ServiceForm";
+import { IServiceFormState } from "src/components/Dashboard/services/ServiceForm";
 
 export interface IServiceOptions {
     name?: string;

@@ -13,6 +13,8 @@ export interface IServiceState {
 export default (state: IServiceState = InitialState.services, action: IServiceAction): IServiceState => {
 
     switch (action.type) {
+        case ServiceActionTypes.START_LOADING: return { data: state.data, loading: true }
+        case ServiceActionTypes.STOP_LOADING: return { data: state.data, loading: false }
         case ServiceActionTypes.SET_SERVICES: return { loading: false, data: [...action.services] };
         default: return state;
     }

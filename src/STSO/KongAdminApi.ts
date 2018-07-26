@@ -1,3 +1,4 @@
+import { IRoute, IRouteOptions } from "src/STSO/api/Route";
 import { IService, IServiceOptions } from "src/STSO/api/Service";
 import { IRestClient, IRestClientOptions, RestClient } from "./RestClient";
 
@@ -27,6 +28,10 @@ export interface IKongAdminApi {
     addService: (serviceOptions: IServiceOptions) => Promise<IService>;
     updateService: (serviceOptions: IServiceOptions) => Promise<IService>;
     deleteService: (serviceId: string) => Promise<any>;
+    routes: () => Promise<IRoute[]>;
+    addRoute: (routeOptions: IRouteOptions) => Promise<IRoute>;
+    updateRoute: (routeOptions: IRouteOptions) => Promise<IRoute>;
+    deleteRoute: (routeId: string) => Promise<any>;
 }
 
 export default class KongAdminApi implements IKongAdminApi {
@@ -86,4 +91,34 @@ export default class KongAdminApi implements IKongAdminApi {
         return this.restClient.patch(options);
     }
 
+    public routes() {
+        const options: IRestClientOptions = {
+            url: this.restClient.endpoint('/routes'),
+        };
+
+        return this.restClient.get(options).then((response: any) => response.data);
+    }
+
+    public addRoute(routeOptions: IRouteOptions): Promise<IRoute> {
+        const options: IRestClientOptions = {
+            data: routeOptions,
+            url: this.restClient.endpoint('/routes'),
+        }      
+        return this.restClient.post(options)  
+    }
+
+    public deleteRoute(routeId: string): Promise<any> {
+        const options: IRestClientOptions = {
+            url: this.restClient.endpoint(`/routes/${routeId}`),
+        }
+        return this.restClient.delete(options);
+    }
+
+    public updateRoute(routeOptions: IRoute): Promise<IRoute>{
+        const options: IRestClientOptions = {
+            data: routeOptions,
+            url: this.restClient.endpoint(`/routes/${routeOptions.id}`)
+        }
+        return this.restClient.patch(options);
+    }
 }

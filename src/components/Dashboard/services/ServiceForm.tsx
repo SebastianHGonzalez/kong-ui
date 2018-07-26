@@ -23,6 +23,7 @@ export interface IServiceFormState {
     retries: number | null;
     connect_timeout: number | null;
     write_timeout: number | null;
+    read_timeout: number | null;
     url: string | null;
 }
 
@@ -87,7 +88,7 @@ export class AddServiceForm extends React.Component<IAddServiceFormProps, IServi
 
     public handlePortChange(event: any) {
         this.setState({
-            host: event.target.value,
+            port: parseInt(event.target.value, undefined),
         });
     }
 
@@ -99,19 +100,25 @@ export class AddServiceForm extends React.Component<IAddServiceFormProps, IServi
 
     public handleRetriesChange(event: any) {
         this.setState({
-            retries: event.target.value,
+            retries: parseInt(event.target.value, undefined),
         });
     }
 
     public handleConnectTimeoutChange(event: any) {
         this.setState({
-            connect_timeout: event.target.value,
+            connect_timeout: parseInt(event.target.value, undefined),
         });
     }
 
     public handleWriteTimeoutChange(event: any) {
         this.setState({
-            write_timeout: event.target.value,
+            write_timeout: parseInt(event.target.value, undefined),
+        });
+    }
+
+    public handleReadTimeoutChange(event: any) {
+        this.setState({
+            read_timeout: parseInt(event.target.value, undefined),
         });
     }
 

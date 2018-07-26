@@ -16,6 +16,7 @@ export default class Locale {
     public portDescription = "The upstream server port. Defaults to 80.";
     public retries = "Retries";
     public retriesDescription = "The number of retries to execute upon failure to proxy. The default is 5.";
+    public route = "Route";
     public save = "Save";
     public service = "Service";
     public services = "Services";
