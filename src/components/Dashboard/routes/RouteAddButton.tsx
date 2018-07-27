@@ -44,7 +44,7 @@ export class RouteAddButton extends React.Component<IRouteAddButtonProps, IRoute
     public render() {
         return (
             <div>
-                <Button color='primary' onClick={this.handleClick}>
+                <Button variant='outlined' size='large' color='primary' onClick={this.handleClick}>
                     {this.props.locale.common.add} {this.props.locale.common.route}
                 </Button>
                 <RouteDialog open={this.state.dialogOpen}

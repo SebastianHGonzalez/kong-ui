@@ -35,7 +35,7 @@ export class ServiceAddButton extends React.Component<IAddServiceActionProps, IA
     public render() {
         return (
             <div>
-                <Button color='primary' onClick={this.handleButtonClick}>
+                <Button variant='outlined' size='large' color='primary' onClick={this.handleButtonClick}>
                     {this.props.locale.common.add} {this.props.locale.common.service}
                 </Button>
                 <ServiceDialog open={this.state.dialogOpen}

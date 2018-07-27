@@ -1,4 +1,4 @@
-import { Card, CardActions, CardContent, CardHeader, List } from '@material-ui/core';
+import { Card, CardActions, CardContent, List } from '@material-ui/core';
 import * as React from 'react';
 import { connect } from 'react-redux';
 
@@ -26,7 +26,6 @@ export class KongServerServices extends React.Component<IServerServicesProps, an
     public render() {
         return (
             <Card>
-                <CardHeader title="Services" />
                 <CardActions>
                     <ServiceAddButton />
                 </CardActions>

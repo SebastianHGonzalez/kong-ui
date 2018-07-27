@@ -1,4 +1,4 @@
-import { Card, CardActions, CardContent, CardHeader } from '@material-ui/core';
+import { Card, CardActions, CardContent } from '@material-ui/core';
 import * as React from 'react';
 import { connect } from 'react-redux';
 
@@ -33,7 +33,6 @@ export class KongServerRoutes extends React.Component<IKongServerRoutesProps> {
     public render() {
         return (
             <Card>
-                <CardHeader title="Routes" />
                 <CardActions>
                     <RouteAddButton />
                 </CardActions>
