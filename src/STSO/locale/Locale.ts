@@ -37,6 +37,8 @@ export default interface ILocale {
         writeTimeoutDescription: string;
     }
     route:{
+        protocols: string;
+        protocolsDescription: string;
         methods: string;
         methodsDescription: string;
     }

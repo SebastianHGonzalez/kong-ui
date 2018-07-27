@@ -1,3 +1,5 @@
+import { IRouteFormState } from "src/components/Dashboard/routes/RouteForm";
+
 export type protocol = 'http' | 'https';
 
 export type method = 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH';
@@ -52,3 +54,13 @@ export function toMethod(methodString: string): method {
     }
 }
 
+
+export function formToRouteOptions(obj: IRouteFormState): IRouteOptions {
+    const ret = {}
+    for (const propName in obj) { 
+      if (!(obj[propName] === null || obj[propName] === undefined)) {
+        ret[propName] = obj[propName];
+      }
+    }
+    return ret as any;
+}

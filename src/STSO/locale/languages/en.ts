@@ -17,6 +17,8 @@ const en: ILocale = {
     route: {
         methods: 'methods',
         methodsDescription: `A list of HTTP methods that match this Route. For example: '"GET", "POST"'. At least one of hosts, paths, or methods must be set.`,
+        protocols: 'protocols',
+        protocolsDescription: `A list of the protocols this Route should allow. By default it is 'http, https', which means that the Route accepts both. When set to 'https', HTTP requests are answered with a request to upgrade to HTTPS.`,
     },
     service: {
         connectTimeout: "Connect Timeout",

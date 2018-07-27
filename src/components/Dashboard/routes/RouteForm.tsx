@@ -17,7 +17,7 @@ interface IRouteFormProps extends React.Props<any> {
     services: IServiceState;
 }
 
-interface IRouteFormState {
+export interface IRouteFormState {
     protocols: string;
     methods: string;
     hosts: string;
@@ -80,9 +80,17 @@ export class RouteForm extends React.Component<IRouteFormProps, IRouteFormState>
                 <FormControl>
                     <TextField
                     name='methods'
+                    placeholder='get, post'
                     onChange={this.handleChange}
                     label={this.props.locale.route.methods}
                     helperText={this.props.locale.route.methodsDescription}
+                    />
+                    <TextField
+                    name='protocols'
+                    placeholder='http, https'
+                    onChange={this.handleChange}
+                    label={this.props.locale.route.protocols}
+                    helperText={this.props.locale.route.protocolsDescription}
                     />
                     <SelectService
                         services={this.props.services}
