@@ -6,12 +6,12 @@ import { updateService } from 'src/actions/ServiceActionCreators';
 import ServiceDialog from 'src/components/Dashboard/services/ServiceDialog';
 import { IStoreState } from 'src/store/InitialState';
 import { IService, IServiceOptions } from 'src/STSO/api/Service';
-import Locale from 'src/STSO/locale/Locale';
+import ILocale from 'src/STSO/locale/Locale';
 
 
 export interface IServiceEditButtonProps extends React.Props<any> {
     service: IService;
-    locale: Locale;
+    locale: ILocale;
     updateService: (data: IServiceOptions) => any;
 }
 
@@ -37,11 +37,11 @@ export class ServiceEditButton extends React.Component<IServiceEditButtonProps, 
         });
     }
 
-    public handleClose(data: IService) {
+    public handleClose(data?: IService) {
         this.setState({
             dialogOpen: false,
         });
-        if (data.id) {
+        if (data) {
             this.props.updateService(data);
         }
     }
@@ -50,7 +50,7 @@ export class ServiceEditButton extends React.Component<IServiceEditButtonProps, 
         return (
             <div>
                 <Button onClick={this.handleClick}>
-                    {`${this.props.locale.edit} ${this.props.locale.service}`}
+                    {`${this.props.locale.common.edit} ${this.props.locale.common.service}`}
                 </Button>
                 <ServiceDialog open={this.state.dialogOpen}
                     onClose={this.handleClose}

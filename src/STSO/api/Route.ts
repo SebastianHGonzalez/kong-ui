@@ -1,6 +1,7 @@
-export type protocol = 'http' | 'https'
+export type protocol = 'http' | 'https';
 
-export type method = 'GET' | 'POST' | 'PATCH' | 'OPTIONS'
+export type method = 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH';
+
 
 export interface IRouteOptions {
     protocols: protocol[];
@@ -27,3 +28,27 @@ export interface IRoute {
         id: string
     }
 }
+
+export function toProtocol(protocolString: string): protocol {
+    switch (protocolString.toLowerCase()) {
+        case 'http': return 'http';
+        case 'https': return 'https';
+        default: throw Error;
+    }
+}
+
+export function toMethod(methodString: string): method {
+    switch (methodString.toUpperCase()) {
+        case 'GET': return 'GET';
+        case 'HEAD': return 'HEAD';
+        case 'POST': return 'POST';
+        case 'PUT': return 'PUT';
+        case 'DELETE': return 'DELETE';
+        case 'CONNECT': return 'CONNECT';
+        case 'OPTIONS': return 'OPTIONS';
+        case 'TRACE': return 'TRACE';
+        case 'PATCH': return 'PATCH';
+        default: throw Error;
+    }
+}
+

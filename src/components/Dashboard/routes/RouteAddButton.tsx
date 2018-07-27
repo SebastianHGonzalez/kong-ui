@@ -6,11 +6,11 @@ import { createRoute } from 'src/actions/RouteActionCreators';
 import RouteDialog from 'src/components/Dashboard/routes/RouteDialog';
 import { IStoreState } from 'src/store/InitialState';
 import { IRouteOptions } from 'src/STSO/api/Route';
-import Locale from 'src/STSO/locale/Locale';
+import ILocale from 'src/STSO/locale/Locale';
 
 
 interface IRouteAddButtonProps extends React.Props<any> {
-    locale: Locale;
+    locale: ILocale;
     createRoute: (routeOptions: IRouteOptions) => any;
 }
 
@@ -45,7 +45,7 @@ export class RouteAddButton extends React.Component<IRouteAddButtonProps, IRoute
         return (
             <div>
                 <Button color='primary' onClick={this.handleClick}>
-                    {this.props.locale.add} {this.props.locale.route}
+                    {this.props.locale.common.add} {this.props.locale.common.route}
                 </Button>
                 <RouteDialog open={this.state.dialogOpen}
                     onClose={this.handleDialogClose} />

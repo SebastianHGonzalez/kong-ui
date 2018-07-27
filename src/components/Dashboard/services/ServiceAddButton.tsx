@@ -7,11 +7,11 @@ import ServiceDialog from 'src/components/Dashboard/services/ServiceDialog';
 import { ILoginData } from 'src/reducers/LoginReducer';
 import { IStoreState } from 'src/store/InitialState';
 import { IServiceOptions } from 'src/STSO/api/Service';
-import Locale from 'src/STSO/locale/Locale';
+import ILocale from 'src/STSO/locale/Locale';
 
 interface IAddServiceActionProps extends React.Props<any> {
     login: ILoginData;
-    locale: Locale;
+    locale: ILocale;
     createService: (data: IServiceOptions) => any;
 }
 
@@ -36,7 +36,7 @@ export class ServiceAddButton extends React.Component<IAddServiceActionProps, IA
         return (
             <div>
                 <Button color='primary' onClick={this.handleButtonClick}>
-                    {this.props.locale.add} {this.props.locale.service}
+                    {this.props.locale.common.add} {this.props.locale.common.service}
                 </Button>
                 <ServiceDialog open={this.state.dialogOpen}
                     onClose={this.handleDialogClose} />

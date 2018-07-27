@@ -5,11 +5,11 @@ import { connect } from 'react-redux';
 import { deleteService } from 'src/actions/ServiceActionCreators';
 import { IStoreState } from 'src/store/InitialState';
 import { IService } from 'src/STSO/api/Service';
-import Locale from 'src/STSO/locale/Locale';
+import ILocale from 'src/STSO/locale/Locale';
 
 interface IServiceDeleteButtonProps extends React.Props<any> {
     service: IService;
-    locale: Locale;
+    locale: ILocale;
     deleteThisService: (id: string) => (event: any) => any;
 }
 
@@ -20,7 +20,7 @@ export class ServiceDeleteButton extends React.Component<IServiceDeleteButtonPro
                 onClick={
                     this.props.deleteThisService(this.props.service.id)
                 }>
-                {this.props.locale.delete} {this.props.locale.service}
+                {this.props.locale.common.delete} {this.props.locale.common.service}
             </Button>
         );
     }

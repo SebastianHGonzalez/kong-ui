@@ -1,15 +1,15 @@
 import { Action } from "redux";
 
 import LocaleActionTypes from "src/actions/LocaleActionTypes";
-import Locale from "src/STSO/locale/Locale";
+import ILocale from "src/STSO/locale/Locale";
 
-export type LocaleActionCreator = (locale: Locale) => ILocaleAction;
+export type LocaleActionCreator = (locale: ILocale) => ILocaleAction;
 
 export interface ILocaleAction extends Action {
-    locale: Locale;
+    locale: ILocale;
 }
 
-export const setLocale: LocaleActionCreator = (locale: Locale): ILocaleAction =>
+export const setLocale: LocaleActionCreator = (locale: ILocale): ILocaleAction =>
     ({
         locale,
         type: LocaleActionTypes.SET_LOCALE,

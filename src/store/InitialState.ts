@@ -2,11 +2,11 @@ import { INodeInformationState } from "src/reducers/NodeInformationReducer";
 import { INodeStatusState } from "src/reducers/NodeStatusReducer";
 import { IRouteState } from "src/reducers/RouteReducer";
 import { IServiceState } from "src/reducers/ServiceReducer";
-import Locale from "src/STSO/locale/Locale";
+import ILocale, { Locale } from "src/STSO/locale/Locale";
 
 
 export interface IStoreState {
-    locale: Locale;
+    locale: ILocale;
     login: any;
     services: IServiceState;
     nodeInformation: INodeInformationState;
@@ -15,7 +15,7 @@ export interface IStoreState {
 }
 
 const InitialState: IStoreState = {
-    locale: new Locale(),
+    locale: Locale('en'),
     login: null,
     nodeInformation: {
         loading: true,

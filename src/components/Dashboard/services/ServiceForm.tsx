@@ -1,14 +1,15 @@
-import { Button, FormControl, FormGroup, MenuItem, Select, TextField } from '@material-ui/core';
+import { FormControl, FormGroup, MenuItem, Select, TextField } from '@material-ui/core';
 import * as React from 'react';
 import { connect } from 'react-redux';
 
 import { IStoreState } from 'src/store/InitialState';
 import { formToServiceOptions, IService, IServiceOptions } from 'src/STSO/api/Service';
-import Locale from 'src/STSO/locale/Locale';
+import ILocale from 'src/STSO/locale/Locale';
+import Actions from '../../common/form/transactional/Actions';
 
 
 interface IAddServiceFormProps extends React.Props<any> {
-    locale: Locale;
+    locale: ILocale;
     onSubmit: (data: IServiceOptions) => void;
     onCancel: () => void;
     service?: IService;
@@ -131,7 +132,7 @@ export class AddServiceForm extends React.Component<IAddServiceFormProps, IServi
     public render() {
         const locale = this.props.locale;
         return (
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit} onReset={this.handleCancel}>
                 <FormControl>
                     <FormGroup>
                         <InputName value={this.state.name} onChange={this.handleNameChange} locale={locale} />
@@ -144,14 +145,7 @@ export class AddServiceForm extends React.Component<IAddServiceFormProps, IServi
                         <InputWriteTimeout value={this.state.write_timeout} onChange={this.handleWriteTimeoutChange} locale={locale} />
                         <InputUrl value={this.state.url} onChange={this.handleUrlChange} locale={locale} />
                     </FormGroup>
-                    <FormGroup>
-                        <Button color='primary' type='submit'>
-                            {this.props.service? locale.save : locale.add}
-                        </Button>
-                        <Button color='secondary' type='reset' onClick={this.handleCancel}>
-                            {locale.cancel}
-                        </Button>
-                    </FormGroup>
+                    <Actions locale={this.props.locale} editing={this.props.service} />
                 </FormControl>
             </form>
         );
@@ -161,7 +155,7 @@ export class AddServiceForm extends React.Component<IAddServiceFormProps, IServi
 interface IInputProps {
     value: string | number | null;
     onChange: (event: any) => void;
-    locale: Locale;
+    locale: ILocale;
 }
 
 function SelectProtocol({ value, onChange, locale }: IInputProps) {
@@ -172,14 +166,14 @@ function SelectProtocol({ value, onChange, locale }: IInputProps) {
         </Select>
     );
 }
-function InputName({ value, onChange, locale }: IInputProps) { return (textInput(value, onChange, locale.name)); }
-function InputHost({ value, onChange, locale }: IInputProps) { return (textInput(value, onChange, locale.host, locale.hostDescription)); }
-function InputPath({ value, onChange, locale }: IInputProps) { return (textInput(value, onChange, locale.path, locale.pathDescription)); }
-function InputPort({ value, onChange, locale }: IInputProps) { return (numberInput(value, onChange, locale.port, locale.portDescription)); }
-function InputRetries({ value, onChange, locale }: IInputProps) { return (numberInput(value, onChange, locale.retries, locale.retriesDescription)); }
-function InputConnectTimeout({ value, onChange, locale }: IInputProps) { return (numberInput(value, onChange, locale.connectTimeout, locale.connectTimeoutDescription)); }
-function InputWriteTimeout({ value, onChange, locale }: IInputProps) { return (numberInput(value, onChange, locale.writeTimeout, locale.writeTimeoutDescription)); }
-function InputUrl({ value, onChange, locale }: IInputProps) { return (input(value, 'url', onChange, locale.url, locale.urlDescription)); }
+function InputName({ value, onChange, locale }: IInputProps) { return (textInput(value, onChange, locale.common.name)); }
+function InputHost({ value, onChange, locale }: IInputProps) { return (textInput(value, onChange, locale.service.host, locale.service.hostDescription)); }
+function InputPath({ value, onChange, locale }: IInputProps) { return (textInput(value, onChange, locale.service.path, locale.service.pathDescription)); }
+function InputPort({ value, onChange, locale }: IInputProps) { return (numberInput(value, onChange, locale.service.port, locale.service.portDescription)); }
+function InputRetries({ value, onChange, locale }: IInputProps) { return (numberInput(value, onChange, locale.service.retries, locale.service.retriesDescription)); }
+function InputConnectTimeout({ value, onChange, locale }: IInputProps) { return (numberInput(value, onChange, locale.service.connectTimeout, locale.service.connectTimeoutDescription)); }
+function InputWriteTimeout({ value, onChange, locale }: IInputProps) { return (numberInput(value, onChange, locale.service.writeTimeout, locale.service.writeTimeoutDescription)); }
+function InputUrl({ value, onChange, locale }: IInputProps) { return (input(value, 'url', onChange, locale.service.url, locale.service.urlDescription)); }
 
 function textInput(value: string | number | null, onChange: any, label: string, helperText?: string) {
     return (input(value, 'text', onChange, label, helperText));

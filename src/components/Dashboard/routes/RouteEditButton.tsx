@@ -6,12 +6,12 @@ import { updateRoute } from 'src/actions/RouteActionCreators';
 import RouteDialog from 'src/components/Dashboard/routes/RouteDialog';
 import { IStoreState } from 'src/store/InitialState';
 import { IRoute, IRouteOptions } from 'src/STSO/api/Route';
-import Locale from 'src/STSO/locale/Locale';
+import ILocale from 'src/STSO/locale/Locale';
 
 
 export interface IRouteEditButtonProps extends React.Props<any> {
     route: IRoute;
-    locale: Locale;
+    locale: ILocale;
     updateRoute: (data: IRouteOptions) => any;
 }
 
@@ -50,7 +50,7 @@ export class RouteEditButton extends React.Component<IRouteEditButtonProps, IRou
         return (
             <div>
                 <Button onClick={this.handleClick}>
-                    {`${this.props.locale.edit} ${this.props.locale.route}`}
+                    {`${this.props.locale.common.edit} ${this.props.locale.common.route}`}
                 </Button>
                 <RouteDialog open={this.state.dialogOpen}
                     onClose={this.handleClose}

@@ -7,12 +7,12 @@ import AsyncContent from 'src/components/common/AsyncContent';
 import Service from 'src/components/Dashboard/services/Service';
 import ServiceAddButton from 'src/components/Dashboard/services/ServiceAddButton';
 import { IStoreState } from 'src/store/InitialState';
-import Locale from 'src/STSO/locale/Locale';
+import ILocale from 'src/STSO/locale/Locale';
 import { IServiceState } from '../../reducers/ServiceReducer';
 
 
 interface IServerServicesProps extends React.Props<any> {
-    locale: Locale;
+    locale: ILocale;
     services: IServiceState;
     deleteService: (id: string) => any;
     fetchServices: () => any;
@@ -57,7 +57,7 @@ export class KongServerServices extends React.Component<IServerServicesProps, an
     }
 
     private renderNoServices() {
-        return `${this.props.locale.no} ${this.props.locale.services}`;
+        return `${this.props.locale.common.no} ${this.props.locale.common.services}`;
     }
 }
 

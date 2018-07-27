@@ -1,11 +1,11 @@
 import InitialState from "src/store/InitialState";
 
 import { ILocaleAction } from "src/actions/LocaleActionCreators";
-import Locale from "src/STSO/locale/Locale";
+import ILocale from "src/STSO/locale/Locale";
 import LocaleActionTypes from "../actions/LocaleActionTypes";
 
 
-export default (state: Locale = InitialState.locale, action: ILocaleAction): Locale => {
+export default (state: ILocale = InitialState.locale, action: ILocaleAction): ILocale => {
 
     switch (action.type) {
         case LocaleActionTypes.SET_LOCALE: return action.locale;

@@ -1,18 +1,18 @@
-import { Button, FormControl, FormGroup, MenuItem, Select } from '@material-ui/core';
+import { FormControl, TextField } from '@material-ui/core';
 import * as React from 'react';
 import { connect } from 'react-redux';
 
+import Actions from 'src/components/common/form/transactional/Actions';
 import { IServiceState } from 'src/reducers/ServiceReducer';
 import { IStoreState } from 'src/store/InitialState';
-import { IRoute, IRouteOptions } from "src/STSO/api/Route";
-import { IService } from 'src/STSO/api/Service';
-import Locale from "src/STSO/locale/Locale";
+import { IRoute, IRouteOptions, toMethod, toProtocol } from "src/STSO/api/Route";
+import ILocale from "src/STSO/locale/Locale";
+import SelectService from './form/SelectService';
 
 
 interface IRouteFormProps extends React.Props<any> {
-    locale: Locale;
-    onSubmit: (data: IRouteOptions) => void;
-    onCancel: () => void;
+    locale: ILocale;
+    onSubmit: (data?: IRouteOptions) => void;
     route?: IRoute;
     services: IServiceState;
 }
@@ -41,6 +41,19 @@ export class RouteForm extends React.Component<IRouteFormProps, IRouteFormState>
             strip_path: false,
         }
 
+        if (props.route) {
+            this.state = {
+                hosts: props.route.hosts.join(', '),
+                methods: props.route.methods.join(', '),
+                paths: props.route.paths.join(', '),
+                preserve_host: props.route.preserve_host,
+                protocols: props.route.protocols.join(', '),
+                service_id: props.route.service.id,
+                strip_path: props.route.strip_path,
+            }
+        }
+
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
     }
@@ -51,49 +64,48 @@ export class RouteForm extends React.Component<IRouteFormProps, IRouteFormState>
 
     public handleCancel(event: any) {
         event.stopPropagation();
-        this.props.onCancel();
+        this.props.onSubmit();
+    }
+
+    public handleSubmit(event: any) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        this.props.onSubmit(this.routeOptions);
     }
 
     public render() {
         return (
-            <form>
+            <form onSubmit={this.handleSubmit} onReset={this.handleCancel}>
                 <FormControl>
-                    {this.renderSelectService()}
-                    {this.renderButtons()}
+                    <TextField
+                    name='methods'
+                    onChange={this.handleChange}
+                    label={this.props.locale.route.methods}
+                    helperText={this.props.locale.route.methodsDescription}
+                    />
+                    <SelectService
+                        services={this.props.services}
+                        value={this.state.service_id}
+                        onChange={this.handleChange}
+                        name='service_id'
+                    />
+                    <Actions locale={this.props.locale} editing={this.props.route} />
                 </FormControl>
             </form>
         );
     }
 
-    public renderButtons() {
-        return (
-            <FormGroup>
-                <Button color='primary' type='submit'>
-                    {this.props.route ? this.props.locale.save : this.props.locale.add}
-                </Button>
-                <Button color='secondary' type='reset' onClick={this.handleCancel}>
-                    {this.props.locale.cancel}
-                </Button>
-            </FormGroup>
-        );
-    }
-
-    public renderSelectService() {
-        return (
-            <FormControl required={true}>
-                <Select value={this.state.service_id}
-                    onChange={this.handleChange}
-                    inputProps={{
-                        name: 'service_id',
-                    }}>
-                    {this.props.services.data.map((service: IService) =>
-                        <MenuItem key={service.id} value={service.id}>
-                            {service.name}
-                        </MenuItem>
-                    )}
-                </Select>
-            </FormControl>
-        );
+    public get routeOptions(): IRouteOptions {
+        return {
+            hosts: this.state.hosts.replace(' ', '').split(','),
+            methods: this.state.methods.replace(' ', '').split(',').map(toMethod),
+            paths: this.state.paths.replace(' ', '').split(','),
+            preserve_host: this.state.preserve_host,
+            protocols: this.state.protocols.replace(' ', '').split(',').map(toProtocol),
+            service: { id: this.state.service_id },
+            strip_path: this.state.strip_path,
+        }
     }
 }
 
